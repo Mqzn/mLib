@@ -56,7 +56,6 @@ public abstract class MCommand extends Command {
         CommandSyntax commandSyntax = new CommandSyntax(syntax, allowConsole, actions);
 
         if(!syntax.contains(" ")) {
-            System.out.println("SYNTAX IS ABOUT ONE ARG ONLY !");
             commandSyntax.setArg(new CommandParameter(syntax, 0, ParameterType.fromArg(syntax)));
             this.syntaxes.add(commandSyntax);
             return;
@@ -68,7 +67,6 @@ public abstract class MCommand extends Command {
         for (int i = 0, splitLength = split.length; i < splitLength; i++) {
             String arg = split[i];
             ParameterType type = ParameterType.fromArg(arg);
-            System.out.println("SETTING ARG: " + arg + " Of type " + type.name());
             commandSyntax.setArg(new CommandParameter(arg, i, type));
         }
 
@@ -76,7 +74,6 @@ public abstract class MCommand extends Command {
     }
 
     private BiConsumer<CommandSender, ArrayList<String>> searchForActions(CommandSender sender) {
-        System.out.println("ARE ACTIONS EMPTY -> " + syntaxes.isEmpty());
         for (CommandSyntax cs : syntaxes) {
 
             if(cs.matchesArgs(context.getContextArgs())) {
