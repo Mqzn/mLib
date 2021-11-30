@@ -20,6 +20,7 @@ public abstract class Menu implements MenuEntity {
 
     public Menu() {
 
+
     }
 
     protected abstract int getRows();
