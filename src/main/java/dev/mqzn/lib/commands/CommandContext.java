@@ -14,7 +14,9 @@ public interface CommandContext {
 
     MCommand getCommand();
 
+
     default String toText() {
+
         StringBuilder builder = new StringBuilder();
         for (String arg : getContextArgs()) {
             builder.append(arg).append(" ");
