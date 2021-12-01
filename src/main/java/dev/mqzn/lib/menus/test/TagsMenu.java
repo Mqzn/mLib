@@ -12,7 +12,7 @@ public class TagsMenu extends PaginatedMenu<Tag> {
     @Override
     protected void setItems(Player player) {
 
-        for (int i = 0; i < (Integer.MAX_VALUE) ; i++) {
+        for (int i = 0; i < (10000) ; i++) {
             this.addItem(new Tag("&9Tag#" + i, "&aTAG(" + i + ")"));
         }
 

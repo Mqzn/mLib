@@ -65,7 +65,10 @@ public class CommandSyntax {
                 break;
             }
             if(parameter.getParameterType() == ParameterType.NONE) {
-                argsMatches = parameter.getParameter().equalsIgnoreCase(args.get(pos));
+                if(!parameter.getParameter().trim().equalsIgnoreCase(args.get(pos).trim())) {
+                    argsMatches = false;
+                    break;
+                }
             }
 
         }
