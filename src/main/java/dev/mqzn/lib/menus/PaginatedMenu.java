@@ -82,7 +82,7 @@ public abstract class PaginatedMenu<S extends MenuSerializable> implements MenuE
     public final void openPage(Player player, int pageIndex) {
 
         MenuEntity currentMenu = MenuEntity.getOpenEntity(player);
-        if( !(currentMenu instanceof PaginatedMenu<?>) && !currentMenu.equals(this)) {
+        if(currentMenu != null && !(currentMenu instanceof PaginatedMenu<?>) && !currentMenu.equals(this)) {
             //Doesn't have the paginated menus open (whatever page)
 
             this.setItems(player);
