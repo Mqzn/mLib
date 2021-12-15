@@ -28,6 +28,8 @@ public abstract class PaginatedMenu<S extends MenuSerializable> implements MenuE
 
     protected final void setPages() {
         pages.clear();
+        this.maxPages = calculateMaxPages();
+
         int pageIndex = 1;
         while (pageIndex <= maxPages) {
             MenuPage<S> page = new MenuPage<>(pageIndex, this);
@@ -80,11 +82,10 @@ public abstract class PaginatedMenu<S extends MenuSerializable> implements MenuE
     public final void openPage(Player player, int pageIndex) {
 
         MenuEntity currentMenu = MenuEntity.getOpenEntity(player);
-        if(!(currentMenu instanceof PaginatedMenu<?>)) {
+        if( !(currentMenu instanceof PaginatedMenu<?>) && !currentMenu.equals(this)) {
             //Doesn't have the paginated menus open (whatever page)
 
             this.setItems(player);
-            this.maxPages = calculateMaxPages();
             this.setPages();
         }
 
@@ -92,7 +93,7 @@ public abstract class PaginatedMenu<S extends MenuSerializable> implements MenuE
         if(pageIndex < 1 || pageIndex > maxPages)  {
             player.closeInventory();
             player.sendMessage(Translator.color("&cInvalid Page Index: " + pageIndex));
-            player.sendMessage(Translator.color("&cAvailable Pages: " + (Math.max(1, maxPages))));
+            player.sendMessage(Translator.color("&cMaximum Available Pages: 1-" + (Math.max(1, maxPages))));
             return;
         }
 

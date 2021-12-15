@@ -18,10 +18,7 @@ public abstract class Menu implements MenuEntity {
     Inventory inventory = null;
     private final HashMap<Integer, StoredItem> storedItems = new HashMap<>();
 
-    public Menu() {
-
-
-    }
+    public Menu() {}
 
     protected abstract int getRows();
 

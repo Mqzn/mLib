@@ -3,6 +3,7 @@ package dev.mqzn.lib;
 import dev.mqzn.lib.commands.CommandManager;
 import dev.mqzn.lib.commands.test.TestCommand;
 import dev.mqzn.lib.menus.MenuListener;
+import dev.mqzn.lib.npcs.NPCListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,6 +22,7 @@ public final class mLib extends JavaPlugin {
 
         //mLib menu listener
         Bukkit.getPluginManager().registerEvents(new MenuListener(), this);
+        Bukkit.getPluginManager().registerEvents(new NPCListener(), this);
 
     }
 

@@ -3,7 +3,7 @@ package dev.mqzn.lib.commands.exceptions;
 import dev.mqzn.lib.commands.CommandSyntax;
 import dev.mqzn.lib.commands.MCommand;
 
-public class IllegalSyntaxProvidedException extends Exception{
+public class IllegalSyntaxProvidedException extends Exception {
 
     /**
      * Constructs a new exception with the specified detail message.  The

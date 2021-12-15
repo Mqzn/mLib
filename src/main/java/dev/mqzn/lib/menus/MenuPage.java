@@ -11,7 +11,7 @@ public final class MenuPage<S extends MenuSerializable> extends Menu {
 
     private final int index, min, max;
     private final PaginatedMenu<S> paginatedMenu;
-    final static int PAGE_ROWS, PAGE_CAPACITY, NEXT_PAGE_SLOT, PREVIOUS_PAGE_SLOT;;
+    final static int PAGE_ROWS, PAGE_CAPACITY, NEXT_PAGE_SLOT, PREVIOUS_PAGE_SLOT;
     private final static ItemStack NEXT_PAGE_BUTTON, PREVIOUS_PAGE_BUTTON;
 
     static {

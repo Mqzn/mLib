@@ -75,4 +75,6 @@ public interface MenuEntity{
         if(player != null)
         MenuManager.getInstance().unregister(player.getUniqueId());
     }
+
+
 }
