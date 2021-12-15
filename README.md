@@ -31,7 +31,7 @@ You can find our public repository hosted on JitPack. All you need to do is add 
         <dependency>
             <groupId>com.github.mqzn</groupId>
             <artifactId>mLib</artifactId>
-            <version>1.2.4</version>
+            <version>1.2.5</version>
             <scope>provided</scope> 
         </dependency>
       </dependencies>
