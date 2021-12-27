@@ -10,15 +10,17 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.BiConsumer;
 
 public abstract class MCommand extends Command {
 
-    private final ArrayList<CommandSyntax> syntaxes = new ArrayList<>();
+    private final List<CommandSyntax> syntaxes = new ArrayList<>();
     private BiConsumer<CommandSender, ArrayList<String>> defaultActions = null;
     private CommandContext context;
     private boolean allowConsole = true;
     private String permission = null;
+
     public MCommand(String name) {
         super(name);
         this.setInfo();
