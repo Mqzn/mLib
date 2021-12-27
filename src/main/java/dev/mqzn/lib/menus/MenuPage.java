@@ -11,20 +11,14 @@ public final class MenuPage<S extends MenuSerializable> extends Menu {
 
     private final int index, min, max;
     private final PaginatedMenu<S> paginatedMenu;
-    final static int PAGE_ROWS, PAGE_CAPACITY, NEXT_PAGE_SLOT, PREVIOUS_PAGE_SLOT;
+
+    final int pageRows, NEXT_PAGE_SLOT, PREVIOUS_PAGE_SLOT;
     private final static ItemStack NEXT_PAGE_BUTTON, PREVIOUS_PAGE_BUTTON;
 
-    static {
-        PAGE_ROWS = 6;
-
-        PAGE_CAPACITY = PAGE_ROWS*9-2;
-
-        NEXT_PAGE_SLOT = (PAGE_ROWS*9)-1;
+     static {
 
         NEXT_PAGE_BUTTON = new ItemBuilder(Material.ARROW)
                 .setDisplay("&aNext Page >>").build();
-
-        PREVIOUS_PAGE_SLOT = NEXT_PAGE_SLOT-8;
 
         PREVIOUS_PAGE_BUTTON = new ItemBuilder(Material.ARROW)
                 .setDisplay("&e<< Previous Page").build();
@@ -34,9 +28,13 @@ public final class MenuPage<S extends MenuSerializable> extends Menu {
         this.paginatedMenu = paginatedMenu;
         this.index = index;
 
+        this.pageRows = paginatedMenu.getPageRows();
+        NEXT_PAGE_SLOT = paginatedMenu.getNextPageSlot();
+        PREVIOUS_PAGE_SLOT = paginatedMenu.getPreviousPageSlot();
+
          // as there will be extra buttons
-        this.max = index*PAGE_CAPACITY;
-        this.min = max-PAGE_CAPACITY;
+        this.max = index*paginatedMenu.getPageCapacity();
+        this.min = max-paginatedMenu.getPageCapacity();
 
     }
 
@@ -55,7 +53,7 @@ public final class MenuPage<S extends MenuSerializable> extends Menu {
 
     @Override
     protected int getRows() {
-        return PAGE_ROWS;
+        return pageRows;
     }
 
 
@@ -65,13 +63,11 @@ public final class MenuPage<S extends MenuSerializable> extends Menu {
         this.setItem(NEXT_PAGE_SLOT, NEXT_PAGE_BUTTON,
                 (e) -> {
                     paginatedMenu.openPage(player, index+1);
-                    System.out.println("OPENED PAGE " + (index+1));
                 });
 
         this.setItem(PREVIOUS_PAGE_SLOT, PREVIOUS_PAGE_BUTTON,
                 (e)-> {
                     paginatedMenu.openPage(player, index-1);
-                    System.out.println("OPENED PAGE " + (index-1));
                 });
 
         int limit = Math.min(max, paginatedMenu.getItems().size());

@@ -6,7 +6,7 @@
 
     <groupId>dev.mqzn.lib</groupId>
     <artifactId>mLib</artifactId>
-    <version>1.2.5</version>
+    <version>1.2.6</version>
     <packaging>jar</packaging>
     <name>mLib</name>
 
@@ -67,6 +67,12 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>23.0.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 

@@ -19,6 +19,21 @@ public class TagsMenu extends PaginatedMenu<Tag> {
     }
 
     @Override
+    protected int getPageRows() {
+        return 0;
+    }
+
+    @Override
+    protected int getNextPageSlot() {
+        return 0;
+    }
+
+    @Override
+    protected int getPreviousPageSlot() {
+        return 0;
+    }
+
+    @Override
     public String getUniqueName() {
         return "tags";
     }

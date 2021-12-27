@@ -7,7 +7,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.function.BiConsumer;
 
 public abstract class MCommand extends Command {
@@ -15,18 +17,20 @@ public abstract class MCommand extends Command {
     private final ArrayList<CommandSyntax> syntaxes = new ArrayList<>();
     private BiConsumer<CommandSender, ArrayList<String>> defaultActions = null;
     private CommandContext context;
-
+    private boolean allowConsole = true;
     private String permission = null;
     public MCommand(String name) {
         super(name);
         this.setInfo();
     }
 
-    public MCommand(String name, String permission) {
-        super(name);
+    public MCommand(String name, String permission, boolean allowConsole, String... aliases) {
+        super(name, "", "", Arrays.asList(aliases));
         this.permission = permission;
+        this.allowConsole = allowConsole;
         this.setInfo();
     }
+
 
     boolean hasDefaultExecutor() {
         return defaultActions != null;
@@ -91,8 +95,11 @@ public abstract class MCommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
-
-        context = new Context<>(this, sender, args);
+        if(!(sender instanceof Player) && !allowConsole) {
+            sender.sendMessage("Only players can do this !");
+            return false;
+        }
+        context = new Context(sender, args);
         Bukkit.getScheduler().runTaskAsynchronously(mLib.INSTANCE, this::run);
         return true;
     }

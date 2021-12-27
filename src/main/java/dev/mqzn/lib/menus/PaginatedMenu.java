@@ -7,28 +7,49 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class PaginatedMenu<S extends MenuSerializable> implements MenuEntity {
 
-    private int currentPageIndex;
-    private int maxPages;
+    private final int pageCapacity;
+    private int currentPageIndex, maxPages;
     private final List<S> items = new ArrayList<>();
     private final ConcurrentHashMap<Integer, MenuPage<S>> pages = new ConcurrentHashMap<>();
 
-    private final static int CAPACITY = (MenuPage.PAGE_ROWS*9)-2; //TODO make page rows configurable
+    private final Set<Integer> boundSlots = new HashSet<>();
+    {
+        int next = getNextPageSlot();
+        int previous = getPreviousPageSlot();
+        int size = getPageRows()*9;
+
+        if(next >= 0 && next < size) boundSlots.add(next);
+        if(previous >=0 && previous < size) boundSlots.add(previous);
+
+        pageCapacity = size*9-boundSlots.size();
+    }
 
     protected PaginatedMenu() {
         currentPageIndex = 1;
     }
 
+    protected PaginatedMenu(final int... boundSlots) {
+        this();
+        for(int s : boundSlots) this.boundSlots.add(s);
+    }
+
+    public int getPageCapacity() {
+        return pageCapacity;
+    }
+
     protected abstract void setItems(Player player);
+    protected abstract int getPageRows();
+    protected abstract int getNextPageSlot();
+    protected abstract int getPreviousPageSlot();
 
     protected final void setPages() {
-        pages.clear();
         this.maxPages = calculateMaxPages();
+        pages.clear();
 
         int pageIndex = 1;
         while (pageIndex <= maxPages) {
@@ -56,17 +77,17 @@ public abstract class PaginatedMenu<S extends MenuSerializable> implements MenuE
     }
 
     private int calculateMaxPages() {
-        return (int)Math.ceil((double)this.items.size()/CAPACITY);
+        return (int)Math.ceil((double)this.items.size()/pageCapacity);
     }
 
-    protected final S getSerializableObject(int pageIndex, int slot) {
+    protected final S getObject(int pageIndex, int slot) {
 
         MenuPage<S> page = this.getPageAt(pageIndex);
         if(page == null || slot < 0 || slot > page.calculateSize()-1) return null;
 
         int limit = Math.min(page.getMaxBound(), this.items.size());
         for (int index = page.getMinBound(); index < limit; index++) {
-            int currentSlot = Math.abs(limit-index-MenuPage.PAGE_CAPACITY);
+            int currentSlot = Math.abs(limit-index-pageCapacity);
             if(currentSlot == slot) {
                 return items.get(index) ;
             }
@@ -82,9 +103,9 @@ public abstract class PaginatedMenu<S extends MenuSerializable> implements MenuE
     public final void openPage(Player player, int pageIndex) {
 
         MenuEntity currentMenu = MenuEntity.getOpenEntity(player);
-        if(currentMenu != null && !(currentMenu instanceof PaginatedMenu<?>) && !currentMenu.equals(this)) {
+        if(currentMenu == null || (!(currentMenu instanceof PaginatedMenu<?>) && !currentMenu.equals(this)) ) {
             //Doesn't have the paginated menus open (whatever page)
-
+            System.out.println("ENTERED THIS");
             this.setItems(player);
             this.setPages();
         }
@@ -92,8 +113,14 @@ public abstract class PaginatedMenu<S extends MenuSerializable> implements MenuE
 
         if(pageIndex < 1 || pageIndex > maxPages)  {
             player.closeInventory();
+
+            if(maxPages == 0) {
+                player.sendMessage(Translator.color("&cThere are no pages to open !"));
+                return;
+            }
+
             player.sendMessage(Translator.color("&cInvalid Page Index: " + pageIndex));
-            player.sendMessage(Translator.color("&cMaximum Available Pages: 1-" + (Math.max(1, maxPages))));
+            player.sendMessage(Translator.color("&cMaximum Available Pages: 1-" + maxPages));
             return;
         }
 
@@ -106,10 +133,6 @@ public abstract class PaginatedMenu<S extends MenuSerializable> implements MenuE
             page.open(player);
         }, 2L);
 
-    }
-
-    public int getCurrentPageIndex() {
-        return currentPageIndex;
     }
 
     @Override

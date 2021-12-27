@@ -5,16 +5,13 @@ import org.bukkit.command.CommandSender;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Context<C extends MCommand> implements CommandContext{
+public class Context implements CommandContext{
 
 
-    private final C command;
     private final CommandSender sender;
     private final ArrayList<String> args;
 
-    Context(C command, CommandSender sender, String[] args) {
-
-        this.command = command;
+    Context(CommandSender sender, String[] args) {
         this.sender = sender;
         this.args = collectArgs(args);
 
@@ -36,11 +33,6 @@ public class Context<C extends MCommand> implements CommandContext{
     @Override
     public ArrayList<String> getContextArgs() {
         return args;
-    }
-
-    @Override
-    public C getCommand() {
-        return command;
     }
 
 
