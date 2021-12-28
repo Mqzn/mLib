@@ -14,7 +14,7 @@ There are currently two ways of using mLib in your project:
 - Maven Dependency
 
 ### Artifact Dependency
-You can download the jar directly from [here](../../releases/tag/1.2.8), and use it as an artifact.
+You can download the jar directly from [here](../../releases/tag/1.2.9), and use it as an artifact.
 
 ### Maven Dependency
 You can find our public repository hosted on JitPack. All you need to do is add the JitPack repository, and then the mLib dependency. 
@@ -41,7 +41,7 @@ You can find our public repository hosted on JitPack. All you need to do is add 
 ## Using mLib on your server
 mLib is a stand-alone plugin, this allows it to register its own listeners, and run along-side your other plugins which utilise it.
 
-You can download the jar directly from [here](../../releases/tag/1.2.8), and place it in your plugins folder like any other, restart your server, and away you go!
+You can download the jar directly from [here](../../releases/tag/1.2.9), and place it in your plugins folder like any other, restart your server, and away you go!
 
 ## Utilities Guides
 - [Menus](../../wiki/Menus)
