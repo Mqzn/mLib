@@ -11,6 +11,7 @@ public class SkinData {
     public SkinData(String texture, String signature) {
         this.texture = texture;
         this.signature = signature;
+
     }
 
 }

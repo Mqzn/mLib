@@ -18,6 +18,8 @@ public abstract class NPC<E extends EntityLiving> {
 	private final int id;
 	@Getter @Setter(value = AccessLevel.PROTECTED)
 	private DataWatcher dataWatcher;
+
+	@Getter
 	protected final E entity;
 	@Getter
 	protected final Location loc;

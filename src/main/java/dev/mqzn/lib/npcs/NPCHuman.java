@@ -26,6 +26,7 @@ public abstract class NPCHuman extends NPC<EntityPlayer> {
 		super(location, display);
 		initDW();
 		this.skinData = skinData;
+
 	}
 
 	private void initDW() {
