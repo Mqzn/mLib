@@ -48,6 +48,6 @@ public abstract class NPC<E extends EntityLiving> {
 		((CraftPlayer)player).getHandle().playerConnection.sendPacket(destroy);
 	}
 
-	abstract E createEntity(Location location, String display);
+	protected abstract E createEntity(Location location, String display);
 
 }

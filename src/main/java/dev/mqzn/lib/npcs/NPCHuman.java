@@ -62,7 +62,7 @@ public abstract class NPCHuman extends NPC<EntityPlayer> {
 
 
 	@Override
-	EntityPlayer createEntity(Location location, String display) {
+	protected EntityPlayer createEntity(Location location, String display) {
 		WorldServer server = ((CraftWorld)location.getWorld()).getHandle();
 
 		GameProfile profile = new GameProfile(UUID.randomUUID(), Translator.color(display));
