@@ -34,6 +34,9 @@ public class NPCHandler {
         }
     }
 
-
+    public void deSpawnNPC(NPC<?> npc) {
+        npc.remove();
+        npcs.remove(npc.getId());
+    }
 
 }
