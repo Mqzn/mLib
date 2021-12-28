@@ -6,7 +6,7 @@
 
     <groupId>dev.mqzn.lib</groupId>
     <artifactId>mLib</artifactId>
-    <version>1.2.7</version>
+    <version>1.2.8</version>
     <packaging>jar</packaging>
     <name>mLib</name>
 

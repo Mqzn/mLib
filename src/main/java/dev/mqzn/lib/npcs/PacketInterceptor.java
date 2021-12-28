@@ -52,7 +52,7 @@ public class PacketInterceptor extends ChannelDuplexHandler {
 			Bukkit.getPluginManager().callEvent(event);
 
 			if(!event.isCancelled()) {
-				entity.getOnClick().accept(player);
+				entity.onClick(player);
 			}
 		}
 

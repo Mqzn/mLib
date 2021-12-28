@@ -1,10 +1,13 @@
 package dev.mqzn.lib;
 
-import dev.mqzn.lib.commands.CommandManager;
-import dev.mqzn.lib.commands.test.TestCommand;
 import dev.mqzn.lib.menus.MenuListener;
-import dev.mqzn.lib.npcs.*;
+import dev.mqzn.lib.npcs.NPC;
+import dev.mqzn.lib.npcs.NPCHandler;
+import dev.mqzn.lib.npcs.PacketInterceptor;
+import net.minecraft.server.v1_8_R3.Packet;
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -18,6 +21,8 @@ public final class mLib extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         INSTANCE = this;
+
+        //CommandManager.getInstance().registerCommand(new TestCommand());
 
         //mLib menu listener
         Bukkit.getPluginManager().registerEvents(new MenuListener(), this);
@@ -45,12 +50,8 @@ public final class mLib extends JavaPlugin implements Listener {
         PacketInterceptor.unInject(e.getPlayer());
     }
 
-    /*@EventHandler
-    public void onClickNPC(NPCPlayerClickEvent e) {
-        if(e.getClickedNPC() instanceof NPCHuman) {
-            e.setCancelled(true);
-            System.out.println("THIS IS JUST A TEST !!, NPC-CLICK-EVENT WAS CANCELLED");
-        }
-    }*/
 
+    public static void sendPacket(Player p, Packet<?> packet) {
+        ((CraftPlayer)p).getHandle().playerConnection.sendPacket(packet);
+    }
 }
