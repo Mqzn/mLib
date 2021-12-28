@@ -8,7 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class NPCHandler {
 
     public static NPCHandler INSTANCE = new NPCHandler();
-
     private final ConcurrentHashMap<Integer, NPC<?>> npcs = new ConcurrentHashMap<>();
 
     public NPC<?> getNPC(int npcId) {
