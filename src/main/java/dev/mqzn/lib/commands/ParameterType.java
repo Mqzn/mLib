@@ -17,11 +17,6 @@ public enum ParameterType {
         return prefix;
     }
 
-    public String getSuffix() {
-        return suffix;
-    }
-
-
     static ParameterType fromArg(String arg) {
 
         for (ParameterType types : ParameterType.values()) {
