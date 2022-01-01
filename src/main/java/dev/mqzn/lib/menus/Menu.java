@@ -88,6 +88,7 @@ public abstract class Menu implements MenuEntity {
         this.setItems(player);
         if(MenuEntity.getOpenEntity(player) != null) {
             player.closeInventory();
+
             Bukkit.getScheduler().runTaskLater(mLib.INSTANCE, ()-> {
                 MenuEntity.registerEntity(player, this);
                 player.openInventory(inventory);

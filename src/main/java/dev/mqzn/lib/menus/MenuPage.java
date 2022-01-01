@@ -61,9 +61,7 @@ public final class MenuPage<S extends MenuSerializable> extends Menu {
     protected void setItems(Player player) {
 
         this.setItem(NEXT_PAGE_SLOT, NEXT_PAGE_BUTTON,
-                (e) -> {
-                    paginatedMenu.openPage(player, index+1);
-                });
+                (e) -> paginatedMenu.openPage(player, index+1));
 
         this.setItem(PREVIOUS_PAGE_SLOT, PREVIOUS_PAGE_BUTTON,
                 (e)-> {

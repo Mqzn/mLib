@@ -22,7 +22,7 @@ public abstract class NPCHuman extends NPC<EntityPlayer> {
 
 	@Getter
 	private final SkinData skinData;
-	NPCHuman(Location location, String display, SkinData skinData) {
+	protected NPCHuman(Location location, String display, SkinData skinData) {
 		super(location, display);
 		initDW();
 		this.skinData = skinData;
