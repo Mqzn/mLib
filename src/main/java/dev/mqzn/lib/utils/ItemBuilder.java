@@ -73,9 +73,23 @@ public class ItemBuilder {
         ItemMeta meta = itemStack.getItemMeta();
         meta.spigot().setUnbreakable(unbreakable);
         itemStack.setItemMeta(meta);
-
         return this;
     }
+
+    public ItemBuilder glow(boolean glow) {
+        ItemMeta meta = itemStack.getItemMeta();
+
+        if(glow) {
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            meta.addEnchant(Enchantment.DURABILITY, 1, true);
+        }else {
+            meta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
+        }
+        itemStack.setItemMeta(meta);
+        return this;
+    }
+
+
 
     public ItemBuilder addEnchants(ItemEnchant... enchants) {
         ItemMeta meta = itemStack.getItemMeta();

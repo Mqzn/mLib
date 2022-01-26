@@ -15,12 +15,12 @@ import org.bukkit.entity.Player;
 public abstract class NPC<E extends EntityLiving> {
 
 	@Getter
-	private final int id;
+	protected int id;
 	@Getter @Setter(value = AccessLevel.PROTECTED)
 	private DataWatcher dataWatcher;
 
 	@Getter
-	protected final E entity;
+	protected E entity;
 	@Getter
 	protected final Location loc;
 
@@ -30,8 +30,12 @@ public abstract class NPC<E extends EntityLiving> {
 	public NPC(Location location, String display) {
 		this.display = Translator.color(display);
 		this.loc = location;
-		this.entity = createEntity(location, display);
-		this.id = entity.getId();
+
+		if(!(this instanceof NPCHuman)) {
+			this.entity = createEntity(location, display);
+			this.id = entity.getId();
+		}
+
 	}
 
 	public abstract void onClick(Player clicker);

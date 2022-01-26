@@ -14,7 +14,6 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
@@ -24,9 +23,10 @@ public abstract class NPCHuman extends NPC<EntityPlayer> {
 	private final SkinData skinData;
 	protected NPCHuman(Location location, String display, SkinData skinData) {
 		super(location, display);
-		initDW();
 		this.skinData = skinData;
-
+		this.entity = createEntity(location, display);
+		this.id = entity.getId();
+		initDW();
 	}
 
 	private void initDW() {
@@ -54,10 +54,10 @@ public abstract class NPCHuman extends NPC<EntityPlayer> {
 		}.runTaskLater(mLib.INSTANCE,50L);
 
 
-		/*
+
 		PacketPlayOutEntityHeadRotation rotation = new PacketPlayOutEntityHeadRotation(entity, (byte) ((byte) entity.yaw * 256/360));
 		((CraftPlayer)player).getHandle().playerConnection.sendPacket(rotation);
-		*/
+
 
 	}
 

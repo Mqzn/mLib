@@ -33,7 +33,7 @@ public final class mLib extends JavaPlugin implements Listener {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        for(NPC<?> npc : NPCHandler.INSTANCE.getNPCs()) npc.remove();
+        for(NPC<?> npc : NPCHandler.INSTANCE.getNPCs()) NPCHandler.INSTANCE.deSpawnNPC(npc);
         reloadConfig();
     }
 
